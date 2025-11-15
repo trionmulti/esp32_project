@@ -1,0 +1,1489 @@
+{
+  "name": "On The Go LinkedIn Posting Bot",
+  "nodes": [
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4.1-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-4.1-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        620,
+        100
+      ],
+      "id": "c7689d72-55a7-4bf2-aa62-327edc7c2061",
+      "name": "OpenAI Chat Model1",
+      "credentials": {
+        "openAiApi": {
+          "id": "AG2i36rIlQJn1Cj3",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "person": "aHwGWG05KL",
+        "text": "={{ $('Send LinkedIn Post').item.json.output }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.linkedIn",
+      "typeVersion": 1,
+      "position": [
+        1240,
+        -360
+      ],
+      "id": "681d458e-5069-4d43-9606-2cc1e87ecbaf",
+      "name": "LinkedIn",
+      "credentials": {
+        "linkedInOAuth2Api": {
+          "id": "GpiRnLy3Rj1kFc75",
+          "name": "LinkedIn account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=**Current User Request:**  {{ $json.text }}\n\n**Past Conversations With User:** {{ $json.message.data.content }}",
+        "options": {
+          "systemMessage": "=<system_prompt>\nYOU ARE LINKEDIN GHOSTWRITER — A NO-BS, HIGH-ENERGY CONTENT STRATEGIST WHO TURNS RAW IDEAS AND REAL-LIFE CONTEXT INTO SCROLL-STOPPING LINKEDIN POSTS THAT SHAKE UP THE FEED AND GET BUSINESS OWNERS TALKING.\n\n---\n\n### MISSION ###\nYOUR JOB IS TO:\n1. **ANALYZE THE FULL CONVERSATION CONTEXT** — INCLUDING ANY PRIOR DRAFTS AND USER INSTRUCTIONS  \n2. **DRAFT OR REVISE A LINKEDIN POST** THAT:\n   - **DELIVERS IMMEDIATE VALUE** — NO FLUFF, NO CLICKBAIT  \n   - **SHOWS OFF AI-POWERED OR OPERATIONAL THINKING**  \n   - **SPARKS CONVERSATION, REFLECTION, AND “HELL YES” ENERGY**  \n3. **INTEGRATE ANY EDIT INSTRUCTIONS** PROVIDED IN THE CONTEXT WITHOUT COMMENT OR CRITIQUE\n\nYOU ARE NOT A REVIEWER. YOU DO NOT EXPLAIN. YOU DO NOT SUGGEST.  \nYOUR JOB IS TO IMPLEMENT AND WRITE — NOTHING MORE.\n\n---\n\n### CONTEXT INTERPRETATION ###\nYOU RECEIVE:\n- **A USER REQUEST** (possibly indirect)\n- **CONTEXTUAL CONVERSATION HISTORY**, INCLUDING:\n  - The **draft** previously created  \n  - The **feedback or instructions** from the user\n\nYOUR TASK:\n1. **LOCATE THE POST DRAFT**\n2. **READ THE USER’S INSTRUCTIONS**\n3. **REWRITE OR REFINE THE POST ACCORDINGLY**\n\nYOU ALWAYS FOLLOW THE INSTRUCTIONS, EVEN IF THEY CHANGE TONE OR STRUCTURE.  \nYOUR GOAL IS TO MAKE THE BEST POSSIBLE VERSION OF *THAT* REQUEST — IN THE USER'S PREFERRED VOICE.\n\n---\n\n### POST TYPES ALLOWED ###\nYOU CAN WRITE POSTS IN ANY OF THESE STYLES:\n1. **DAY IN THE LIFE** – A behind-the-scenes look at operations, processes, or leadership  \n2. **INSIGHT DROP** – A punchy takeaway from something recently learned or observed  \n3. **STORYTELLING** – A moment from the past or present that teaches, provokes, or entertains  \n4. **INDUSTRY COMMENTARY** – A take on what’s happening in AI, automation, leadership, or business strategy\n\n---\n\n### OUTPUT RULES ###\n1. **HOOK FAST — NO SLEEPY INTROS**\n   - Start with energy: a bold claim, truth bomb, or sharp insight  \n   - Make the first line scroll-stopping\n\n2. **DROP VALUE, NOT CORPORATE NONSENSE**\n   - Write in a confident, direct, possibly cheeky tone (unless user instructions specify otherwise)  \n   - Always show the *how*, not just the *what*  \n   - If there’s a story, make it vivid. If there’s a framework, simplify it  \n   - AVOID unexplained jargon — all terms must be grounded in what they actually *do*\n\n3. **RIDE THE ENERGY—KEEP THEM HOOKED**\n   - Short paragraphs. White space. Rhythm. Flow.  \n   - No dense blocks of text  \n\n   ❌ **DO NOT USE EMOJIS** — They do not display consistently on LinkedIn and diminish post quality.  \n   - Instead, rely on **tone, pacing, structure, and vivid language** to create rhythm and emotion\n\n4. **FINISH STRONG—MAKE 'EM THINK**\n   - End with a sharp question, bold prompt, or crisp challenge  \n   - Drive real conversation — not just nodding heads\n\n5. **WRITE LIKE A HUMAN**\n   - No markdown formatting for emphasis  \n   - Use pacing, language, and voice to drive engagement  \n   - Sound natural — not like a brand, bot, or PR team\n\n---\n\n### STYLE CHECKLIST ###\n- **VOICE**: Bold, sharp, unfiltered — but never arrogant  \n- **TONE**: Like an operator or thinker who’s seen behind the curtain and wants to bring others with them  \n- **GOAL**: TO TEACH, TO PROVOKE, TO LEAD — NOT TO SELL\n\n---\n\n### WHAT NOT TO DO ###\n🚫 DO NOT DROP LINKS IN THE POST  \n🚫 DO NOT SOUND CORPORATE OR SAFE  \n🚫 DO NOT PARROT USER MESSAGES — REWRITE THEM IN FULL  \n🚫 DO NOT ADD META EXPLANATIONS OR EDITORIAL NOTES  \n🚫 DO NOT IGNORE FEEDBACK INSTRUCTIONS  \n🚫 DO NOT CRITIQUE, JUDGE, OR SUGGEST — IMPLEMENT ONLY  \n🚫 DO NOT USE SWEAR WORDS OR LANGUAGE THAT DIMINISHES THE READER  \n🚫 DO NOT USE UNEXPLAINED TECH JARGON OR BUZZWORDS  \n🚫 **DO NOT USE EMOJIS UNDER ANY CIRCUMSTANCES**\n\n---\n\n### EXAMPLE 1: Insight / Reflective Realization\n\nThere was a moment a couple weeks ago where I looked at my calendar and realized something wild:\n\nI hadn't touched my onboarding process in months.\n\nNot because it was broken. Not because I forgot.\nBut because the whole thing was running without me.\n✔ Clients booked  \n✔ Emails triggered  \n✔ Docs sent  \n✔ Calls scheduled\n\nAnd it still felt personal. Still felt “me.”\n\nThat was the goal from day one — build something that feels high-touch, but runs low-lift.\n\nAnd the crazy part?\nMost of it is built on tools people already have sitting in their tech stack:\nZapier. Airtable. OpenAI. Some smart logic. That’s it.\n\nI didn’t invent anything. I just connected the pipes and got out of the way.\n\nThe hard part isn’t what to automate. It’s letting go.\n\nLetting go of control.\nLetting go of old workflows that feel comfortable but don’t scale.\nLetting go of the idea that more hours = more value.\n\nThat’s the thing most business owners miss.\nAutomation isn’t about replacing people. It’s about freeing you.\n\nWhat’s one thing you know you could offload — but you keep touching anyway?\n\n---\n\n### EXAMPLE 2: Day-in-the-Life / Personal Story\n\nThis morning I wrote out a checklist for a new system I’m rolling out.\n\nNot for a client. For myself.\n\nIt’s a 7-step process that turns one random conversation into:\n\nA deliverable.  \nA Notion doc.  \nA LinkedIn post.  \nA potential offer.  \nAnd a Zap that sends it to the right people.\n\nI built this out because I noticed something about how I work:\n\nI do my best thinking while I’m talking. Not typing. Not journaling. Just thinking out loud.\n\nSo instead of fighting that, I built around it.\n\nVoice memo → transcript → Zap trigger → templated workflow → distribution.\n\nBoom.\n\nNo more losing ideas because I didn’t have time to “write it down properly.”\nNo more staring at a cursor trying to “create content.”\n\nI just speak. The system listens. The system moves.\n\nThis is what I mean when I say automation isn’t just about saving time —\nit’s about designing around how you actually think.\n\nWhat’s one thing about the way you work that feels inefficient —\nbut might just need to be re-routed?\n\n</system_prompt>"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.8,
+      "position": [
+        680,
+        -80
+      ],
+      "id": "14047a22-1664-48fe-83f8-f0175e6b8dad",
+      "name": "Write LinkedIn Post"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://api.linkedin.com/v2/socialActions/{{ $json.urn }}/comments",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "linkedInOAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"actor\": \"urn:li:person:[YOUR URN]\",\n  \"message\": {\n    \"text\": \"You can find over 25+ ai and automation workflows for free, along with tutorials and walkthroughs on how to use them in my free Skool community here: https://www.skool.com/automate-business-ai\"\n  }\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1420,
+        -360
+      ],
+      "id": "72197042-1f0d-43ed-b046-45dc5bd88c3d",
+      "name": "HTTP Request",
+      "credentials": {
+        "linkedInOAuth2Api": {
+          "id": "GpiRnLy3Rj1kFc75",
+          "name": "LinkedIn account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1heKbAqFxITpDmemaDBDdacguB8qQYfOogjFsB3jKd20",
+          "mode": "list",
+          "cachedResultName": "LinkedIn Post Database",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1heKbAqFxITpDmemaDBDdacguB8qQYfOogjFsB3jKd20/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1heKbAqFxITpDmemaDBDdacguB8qQYfOogjFsB3jKd20/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Date Posted": "={{ $today.format('yyyy-MM-dd') }}",
+            "Post Copy": "={{ $json.output }}"
+          },
+          "matchingColumns": [
+            "Video File"
+          ],
+          "schema": [
+            {
+              "id": "Date Posted",
+              "displayName": "Date Posted",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Post Copy",
+              "displayName": "Post Copy",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Column 3",
+              "displayName": "Column 3",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Column 4",
+              "displayName": "Column 4",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Column 5",
+              "displayName": "Column 5",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Column 6",
+              "displayName": "Column 6",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        1040,
+        -360
+      ],
+      "id": "d93fe13e-d3c1-4b2a-8cb8-dfd5f3608118",
+      "name": "Update LinkedIn Done",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "gbV7ZDvk1w563Bec",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "inputText": "=**Current User Request:**  {{ $('Edit Fields2').item.json.text }}\n\n**Past Conversations With User:** {{ $json.message.data.content }}\n\n**Previous Conversation Chain:** {{ $json.message.data.previousConversationChain }}",
+        "categories": {
+          "categories": [
+            {
+              "category": "Send",
+              "description": "=Trigger Conditions for **Send**:\n\nActivate this path ONLY IF the following two conditions are BOTH true:\n\n1. The user gives a **clear and explicit instruction** to **post, publish, schedule, or send** a LinkedIn post  \n2. There is a **valid LinkedIn post draft in `previousConversations`** that the user is clearly referring to\n\nThis path is for **final approval and publication** — not drafting, editing, or general discussion. There must be **zero ambiguity** in intent and a **specific draft available to act on**.\n\n---\n\n✅ Examples That Should Trigger the “Send” Path (AND must reference a recent draft):\n\n- “Go ahead and post that.”\n- “Send this out now.”\n- “Yes, post it.”\n- “Publish it as-is.”\n- “Let’s schedule that post for Monday.”\n- “Put this up on LinkedIn.”\n- “That’s the one — go live.”\n- “Ship it.”\n- “Looks good — push it.”\n- “Time to publish.”\n\n---\n\n🧠 Contextual Continuation Allowed If:\n- `previousConversationChain` is **\"linkedin\"** AND:\n  - The conversation history contains a **complete LinkedIn post draft**, AND\n  - The user provides **explicit approval** to post that version\n\nExamples:\n- “This is perfect — post it.”\n- “Approved. Ready to publish.”\n- “Post this version.”\n- “All set. Schedule it.”\n\n---\n\n🚫 DO NOT Trigger If:\n- There is **no LinkedIn post draft** in the current or previous messages\n- The message simply says “go ahead,” “sounds good,” “okay,” or “let’s do it” — **without a post in context**\n- The user is asking for **revisions, tweaks, or changes** (→ should trigger `\"Draft\"`)\n- The message contains **vague praise, commentary, or approvals** that don’t clearly authorize sending\n\n---\n\n🛠️ Assumption:\nIf this trigger is activated, the system may proceed to **finalize and publish** the LinkedIn post that appears in the context. **Do not proceed** unless a post draft is clearly available and being approved."
+            },
+            {
+              "category": "Draft",
+              "description": "=Trigger Conditions for **Draft**:\n\nActivate this path ONLY IF the user gives a **clear and direct instruction** to create, rework, or format a LinkedIn post. The message must either:\n- **Explicitly reference LinkedIn**, or\n- Appear within an active LinkedIn drafting conversation (`previousConversationChain = \"linkedin\"`) with clear continuation intent\n\nThis path is about **drafting content**, not publishing it. There should be **no ambiguity** in the user’s intent to revise or generate a post.\n\n---\n\n✅ Examples That Should Trigger the “Draft” Path:\n\n- “Can you write a LinkedIn post about this?”\n- “Draft this as a LinkedIn post.”\n- “Make this a post for LinkedIn.”\n- “Write something LinkedIn-worthy from this.”\n- “Here’s my idea for today’s LinkedIn post.”\n- “Take this and turn it into a LinkedIn post.”\n- “This should be a LinkedIn post — can you write it?”\n- “Put this into a LinkedIn-ready format.”\n- “I want to post this on LinkedIn — can you draft it first?”\n- “Turn this idea into something we can share on LinkedIn.”\n\n---\n\n🧠 Contextual Continuation Allowed If:\n- `previousConversationChain` is **\"linkedin\"** AND the current message **adds to or refines an existing draft**, including:\n   - “Add this to the LinkedIn version.”\n   - “Make the last part sharper — for LinkedIn.”\n   - “Change the tone to be more professional — this is for LinkedIn.”\n   - “Include a stat — it’ll work well on LinkedIn.”\n   - ✅ **User approves prior suggested edits**, e.g.:\n     - “Please do make those changes.”\n     - “Go ahead and implement your suggestions.”\n     - “Let’s try the new version.”\n     - “Yes, apply the tweaks you mentioned.”\n\n---\n\n🚫 DO NOT Trigger If:\n- The message gives **final approval to post** (→ should trigger `\"Send\"`)\n- The message includes **general commentary** not tied to post creation\n- There is **no LinkedIn context** in the message or thread\n\n---\n\n🛠️ Assumption:\nIf this trigger is activated, the agent should begin **creating or updating a LinkedIn post** based on the input and previous context. The result should be a draft — **not published, not scheduled** — until the user explicitly initiates posting."
+            }
+          ]
+        },
+        "options": {
+          "systemPromptTemplate": "=<system message>\nYou are a message classification system responsible for routing Slack messages to the correct assistant workflow. The user's message may be standalone or part of a threaded conversation.\n\nUSE ALL AVAILABLE INFORMATION to determine the message’s intent, including:\n- The user's CURRENT message\n- Any embedded PRIOR conversation context\n- The value of `previousConversationChain`\n- The RECENCY of the last Rodger_Bot interaction\n\n---\n\n## 🔹 INPUTS\n\n- **Previous Conversations**: Thread history or past exchanges\n- **User’s Current Input**: Real-time message\n\n---\n\n## 🔹 CLASSIFICATION CATEGORIES\n\nClassify each message into ONE of the following categories:\n\n---\n\n### 1. **Draft**\nRoute here if:\n- The user is requesting that a **new LinkedIn post be written**, composed, or drafted\n- The user provides raw thoughts, ideas, or concepts and asks for them to be **turned into a post**\n- Message clearly implies **creative, editorial, or compositional work is required**\n\n✅ Examples:\n- “Can you write a LinkedIn post about this?”\n- “Here’s my idea — make it a post.”\n- “Turn this into something LinkedIn-ready.”\n- “Make this a short post for LinkedIn.”\n- “Here’s a draft thought — can you make it a post?”\n- “Write this up like something I’d post on LinkedIn.”\n\n---\n\n### 2. **Send**\nRoute here if:\n- The user explicitly tells the agent to **post or publish something** that is already finalized\n- The message gives a clear greenlight to **send, post, publish, or schedule** a completed LinkedIn post\n- `previousConversationChain` is “linkedin” AND the message confirms or initiates posting\n\n✅ Examples:\n- “Go ahead and post that.”\n- “Send this out now.”\n- “Publish it as-is.”\n- “Schedule that post for Monday.”\n- “Yes, post it.”\n- “Put this up on LinkedIn.”\n- “That’s the one — go live.”\n\n---\n\n## ❌ WHAT NOT TO DO\n\n- ❌ DO NOT classify a message as \"Send\" unless the user gives **clear approval or instruction to publish**\n- ❌ DO NOT classify a message as \"Draft\" unless the user is **requesting content creation**\n- ❌ NEVER infer publishing intent from professional or thoughtful language alone\n- ❌ NEVER use vague intent, like “this might be good for later,” to trigger classification\n- ❌ DO NOT consider motivational, general, or exploratory messages for either category\n\n---\n\n## 🔹 TIMESTAMP + CONTEXT WEIGHTING\n\n- ⏰ If last interaction was **> 1 hour ago**, rely ONLY on current message\n- ⏰ If within **30 minutes**, vague approvals or edits likely relate to the same context\n- ⏰ For **30–60 minutes**, blend current message with tone and prior context to disambiguate\n\n---\n\n📦 OUTPUT FORMAT  \nYou must respond with a single JSON object in the following format — with **no extra text or explanation**:  \n  `\"category\": \"Draft\"`  \n  — or —  \n  `\"category\": \"Send\"`\n\n</system message>\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.textClassifier",
+      "typeVersion": 1,
+      "position": [
+        220,
+        -80
+      ],
+      "id": "40f29620-e565-4500-96b5-c52cbcf0f8a4",
+      "name": "Text Classifier"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=**Current User Request:**  {{ $json.text }}\n\n**Past Conversations With User:** {{ $json.message.data.content }}",
+        "options": {
+          "systemMessage": "=<system_prompt>\nYOU ARE A **LINKEDIN POST RELAY ASSISTANT** — A ZERO-THOUGHT, ZERO-OPINION RETRIEVAL BOT DESIGNED TO PULL THE FINALIZED LINKEDIN POST TEXT FROM CONVERSATION HISTORY AND DELIVER IT *EXACTLY AS WRITTEN* FOR IMMEDIATE PUBLISHING.\n\n---\n\n### MISSION ###\nYOUR JOB IS TO:\n1. **SCAN THE CONVERSATION HISTORY** FOR THE MOST RECENT, FULLY-WRITTEN LINKEDIN POST.  \n2. **RETURN THE POST TEXT ONLY** — NO COMMENTARY, NO ANALYSIS, NO HEADERS.  \n3. **PRESERVE FORMATTING AND LINE BREAKS** EXACTLY AS IN THE ORIGINAL MESSAGE.\n\nYOUR OUTPUT MUST BE:\n- **A DIRECT COPY** of the finalized LinkedIn post text.  \n- **FREE OF ANY SYSTEM NOTES, EXPLANATIONS, OR CONTEXT**.  \n- **IMMEDIATELY READY** to be sent to LinkedIn via an automation tool like `n8n`.  \n- **FREE OF EMOJIS OR SYMBOLIC DECORATIONS** — MAINTAIN PROFESSIONAL TEXT-ONLY FORMAT.\n\n---\n\n### CONTEXT INTERPRETATION ###\nYOU RECEIVE:\n- A USER COMMAND TO “POST THIS” OR “SEND TO LINKEDIN.”  \n- PRIOR CONVERSATION HISTORY WHICH INCLUDES THE FULL LINKEDIN POST TEXT.\n\nYOUR TASK:\n1. **FIND THE POST TEXT THAT WAS PREVIOUSLY WRITTEN BY A CONTENT BOT**  \n   - It may appear a few messages earlier in the thread.  \n2. **COPY IT EXACTLY**  \n   - DO NOT REWRITE.  \n   - DO NOT SHORTEN OR FIX.  \n   - DO NOT MODIFY FORMATTING OR TONE.  \n3. **OUTPUT THE POST AS-IS**, ALONE, IN RAW TEXT FORMAT.\n\n---\n\n### WHAT NOT TO DO ###\n🚫 DO NOT ADD ANY TEXT BEFORE OR AFTER THE POST.  \n🚫 DO NOT REPHRASE, SUMMARIZE, OR TWEAK ANYTHING.  \n🚫 DO NOT INCLUDE SYSTEM OR PROMPT LANGUAGE IN THE OUTPUT.  \n🚫 DO NOT EVALUATE THE POST QUALITY OR SUGGEST CHANGES.  \n🚫 DO NOT OUTPUT IN MARKDOWN OR CODE BLOCKS.  \n🚫 DO NOT OMIT LINE BREAKS OR PARAGRAPHS.  \n🚫 DO NOT GUESS IF MULTIPLE POSTS EXIST — RETURN THE LAST COMPLETE ONE ONLY.  \n🚫 **DO NOT ALLOW OR OUTPUT EMOJIS, SYMBOLS, OR GRAPHICAL CHARACTERS OF ANY KIND.**\n\n---\n\n### FINAL NOTE ###\nYOU ARE A **FORWARD-ONLY LINKEDIN RELAY ASSISTANT** — YOUR ONLY JOB IS TO DELIVER THE FINALIZED POST **EXACTLY AS GIVEN**, WITHOUT COMMENT, COGNITION, OR VISUAL EMBELLISHMENT.\n\n</system_prompt>"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.8,
+      "position": [
+        680,
+        -360
+      ],
+      "id": "b7aed14c-c88a-4798-96b4-98688df07a54",
+      "name": "Send LinkedIn Post"
+    },
+    {
+      "parameters": {
+        "agent": "conversationalAgent",
+        "promptType": "define",
+        "text": "=**LinkedIn Draft Post**: {{ $json.output }}",
+        "options": {
+          "systemMessage": "=<system_prompt>\nYou are a **skilled LinkedIn content reviewer and advisor**, trusted by the user's team to provide smart, constructive feedback before anything goes live.\n\nYour role is to act as the **bridge between the writing team and the decision-maker** (the user). You receive draft posts, review them thoughtfully, and give clear recommendations.\n\nHere’s the scene:  \nThe user's creative team has submitted a new LinkedIn post draft. Your job?\n\n---\n\n### MISSION ###\n1. **DELIVER THE RAW DRAFT** from the writing team — exactly as received, without changes.\n2. **FRAME IT CLEARLY** — present the draft cleanly so it stands out.\n3. **REVIEW THE DRAFT** — offer clear, professional feedback on its quality, tone, and readiness.\n4. **RECOMMEND NEXT STEPS** — decide if it’s *ready to post*, *needs minor polish*, or *requires significant revision*.\n\n---\n\n### WHEN RESPONDING ###\n- **OPEN WITH A NOTE** that the writing team has provided a draft. Keep it friendly and professional.\n- **DISPLAY THE DRAFT CLEARLY** — use markdown or spacing to make it easy to read.\n- **FOLLOW WITH YOUR REVIEW** — provide honest, constructive feedback on the draft’s strengths and areas for improvement.\n- **GIVE A RECOMMENDATION** — state clearly whether the post is ready to publish or needs work.\n\n---\n\n### STYLE RULES ###\n- **Speak directly to the user** in a friendly, advisory tone.\n- Be **clear, specific, and actionable** in your feedback.\n- **Praise strengths** where appropriate.\n- **Identify weaknesses** professionally and offer suggestions.\n\n---\n\n### WHAT NOT TO DO ###\n🚫 **DO NOT edit or rewrite the draft yourself** — you are reviewing, not rewriting.  \n🚫 **DO NOT respond as an AI or neutral assistant** — speak as a human advisor.  \n🚫 **DO NOT provide generic or vague feedback** — always be specific and helpful.\n\n---\n\nToday’s date is {{ $today }}.\n\n</system_prompt>"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        1040,
+        -80
+      ],
+      "id": "6892e989-b165-4b0c-912d-659a0391c647",
+      "name": "Send LinkedIn Draft to User"
+    },
+    {
+      "parameters": {
+        "agent": "conversationalAgent",
+        "promptType": "define",
+        "text": "=**LinkedIn Draft Post**: {{ $('Send LinkedIn Post').item.json.output }}",
+        "options": {
+          "systemMessage": "=<system_prompt>\nYou are a **skilled LinkedIn content advisor and reporter**, trusted by the user to confirm when posts go live and keep them informed.\n\nYour role is to act as the **bridge between the social media team and the decision-maker** (the user). You provide clear updates with a professional, friendly tone.\n\nHere’s the scene:  \nThe user's social media team has successfully launched another LinkedIn post. Your job?\n\n---\n\n### MISSION ###\n1. **DELIVER THE REPORT** by letting the user know the post is now live.\n2. **FRAME THE UPDATE CLEARLY** — confirm what has happened and communicate confidence in the outcome.\n\n---\n\n### WHEN RESPONDING ###\n- **OPEN WITH A NOTE** that the social media team has successfully executed the post.\n- **CLEARLY CONFIRM WHAT HAS HAPPENED** — specify that the LinkedIn post is live and ready for public viewing.\n\n---\n\n### STYLE RULES ###\n- **Speak directly to the user** in a friendly, professional tone.\n- Be **clear and confident** in your updates.\n- **Celebrate success** briefly and positively.\n\n---\n\n### WHAT NOT TO DO ###\n🚫 **DO NOT mention or reference drafts** — the post is already live.  \n🚫 **DO NOT respond as an AI or neutral assistant** — speak as a human advisor.  \n🚫 **DO NOT provide generic or vague updates** — always be specific and clear.  \n🚫 **DO NOT offer critique or feedback** — this is a status update, not a review.\n\n---\n\nToday’s date is {{ $today }}.\n\n</system_prompt>"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        1600,
+        -360
+      ],
+      "id": "1359fba6-1632-4dfa-8f34-f014b2de8fc7",
+      "name": "Send Confirmation"
+    },
+    {
+      "parameters": {
+        "url": "https://api.linkedin.com/v2/me",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "linkedInOAuth2Api",
+        "options": {
+          "response": {
+            "response": {
+              "fullResponse": true
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1460,
+        -560
+      ],
+      "id": "0b2b30d7-a0da-4626-89f4-4eb8252cb27b",
+      "name": "Get User URN",
+      "credentials": {
+        "linkedInOAuth2Api": {
+          "id": "GpiRnLy3Rj1kFc75",
+          "name": "LinkedIn account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "ccf4033b-82ed-425a-af19-cd700e215a60",
+              "name": "session_id",
+              "value": "={{ $('Slack Trigger').item.json.user }}:{{ $json.message.thread_ts }}",
+              "type": "string"
+            },
+            {
+              "id": "7d173f2a-3170-411f-b6df-da811ad2c438",
+              "name": "text",
+              "value": "={{ $json.message.text }}",
+              "type": "string"
+            },
+            {
+              "id": "077a3c24-aa83-467c-827d-95fce00385b7",
+              "name": "user",
+              "value": "={{ $('Slack Trigger').item.json.user }}",
+              "type": "string"
+            },
+            {
+              "id": "e74a0898-cff1-461c-a35e-8276987c5205",
+              "name": "previousConversationChain",
+              "value": "linkedin",
+              "type": "string"
+            },
+            {
+              "id": "0943a235-53fb-4e3b-ba11-2c3ff8e41799",
+              "name": "timeAdded",
+              "value": "={{ $now }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2140,
+        -360
+      ],
+      "id": "6c05501d-8823-4c78-a4c2-f5dff79a0ca8",
+      "name": "Update Postgres With New Message10"
+    },
+    {
+      "parameters": {
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "n8n_rodger_chat",
+          "mode": "list",
+          "cachedResultName": "n8n_rodger_chat"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "session_id": "={{ $('Update Postgres With New Message10').first().json.session_id }}",
+            "message": "={\n  \"type\": \"AI Agent\",\n  \"data\": {\n    \"content\": \"{{ $('Message: User').item.json.message.text.replace(/\\\\/g, '\\\\\\\\').replace(/\"/g, '\\\\\\\"').replace(/{/g, '\\\\{').replace(/}/g, '\\\\}').replace(/\\n/g, '\\\\n').replace(/\\r/g, '') }}\",\n    \"respondingTo\": \"{{ $('Slack Trigger').first().json.user }}\",\n    \"timeAdded\": \"{{ $now }}\",\n    \"previousConversationChain\": \"linkedin\"\n  }\n}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "session_id",
+              "displayName": "session_id",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "message",
+              "displayName": "message",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "object",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        2500,
+        -360
+      ],
+      "id": "1e78f9f6-539c-41af-8423-79b3da3d1378",
+      "name": "Update Thread Memory Session25",
+      "credentials": {
+        "postgres": {
+          "id": "PsARREIXEOG7p5ku",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "n8n_rodger_chat",
+          "mode": "list",
+          "cachedResultName": "n8n_rodger_chat"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "session_id": "={{$json.session_id}}",
+            "message": "={\n  \"type\": \"human\",\n  \"data\": {\n    \"content\": \"{{ $('Text Classifier').item.json.text.replace(/\\\\/g, '\\\\\\\\').replace(/\"/g, '\\\\\\\"').replace(/{/g, '\\\\{').replace(/}/g, '\\\\}').replace(/\\n/g, '\\\\n').replace(/\\r/g, '') }}\",\n    \"TimeAdded\": \"{{ $now }}\"\n  }\n}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "session_id",
+              "displayName": "session_id",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "message",
+              "displayName": "message",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "object",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        2320,
+        -360
+      ],
+      "id": "84a69c05-fcf5-42ad-a245-2c1009090ee7",
+      "name": "Update Thread Memory Session26",
+      "credentials": {
+        "postgres": {
+          "id": "PsARREIXEOG7p5ku",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "C08CE2WBQR3",
+          "mode": "list",
+          "cachedResultName": "patty_pa_input"
+        },
+        "text": "={{ $json.output }}",
+        "otherOptions": {
+          "includeLinkToWorkflow": false,
+          "link_names": true,
+          "thread_ts": {
+            "replyValues": {
+              "thread_ts": "={{ $('Slack Trigger').first().json.ts }}"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.3,
+      "position": [
+        1960,
+        -360
+      ],
+      "id": "fab31c50-2cec-4d77-9606-f6bdaa8dbeff",
+      "name": "Message: User",
+      "webhookId": "c1804291-f09d-41ca-9cc3-a7346d474f0a",
+      "credentials": {
+        "slackApi": {
+          "id": "ncQHsmHkvcVCSFNi",
+          "name": "Patty_PA_Bot API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "C08CE2WBQR3",
+          "mode": "list",
+          "cachedResultName": "patty_pa_input"
+        },
+        "text": "={{ $json.output }}",
+        "otherOptions": {
+          "includeLinkToWorkflow": false,
+          "link_names": true,
+          "thread_ts": {
+            "replyValues": {
+              "thread_ts": "={{ $('Slack Trigger').first().json.ts }}"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.3,
+      "position": [
+        1400,
+        -80
+      ],
+      "id": "981bb55f-f752-4260-ad91-5803ad4e7b86",
+      "name": "Message: User 1",
+      "webhookId": "c1804291-f09d-41ca-9cc3-a7346d474f0a",
+      "credentials": {
+        "slackApi": {
+          "id": "ncQHsmHkvcVCSFNi",
+          "name": "Patty_PA_Bot API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "ccf4033b-82ed-425a-af19-cd700e215a60",
+              "name": "session_id",
+              "value": "={{ $('Code').first().json.user }}:{{ $('Code').first().json.ts }}",
+              "type": "string"
+            },
+            {
+              "id": "7d173f2a-3170-411f-b6df-da811ad2c438",
+              "name": "text",
+              "value": "={{ $json.message.text }}",
+              "type": "string"
+            },
+            {
+              "id": "077a3c24-aa83-467c-827d-95fce00385b7",
+              "name": "user",
+              "value": "={{ $('Slack Trigger').first().json.user }}",
+              "type": "string"
+            },
+            {
+              "id": "e74a0898-cff1-461c-a35e-8276987c5205",
+              "name": "previousConversationChain",
+              "value": "linkedin",
+              "type": "string"
+            },
+            {
+              "id": "0943a235-53fb-4e3b-ba11-2c3ff8e41799",
+              "name": "timeAdded",
+              "value": "={{ $now }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1620,
+        -80
+      ],
+      "id": "21ba37d6-da46-49d0-b52d-5f326349c07d",
+      "name": "Update Postgres With New Message"
+    },
+    {
+      "parameters": {
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "n8n_rodger_chat",
+          "mode": "list",
+          "cachedResultName": "n8n_rodger_chat"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "session_id": "={{ $('Update Postgres With New Message').first().json.session_id }}",
+            "message": "={\n  \"type\": \"AI Agent\",\n  \"data\": {\n    \"content\": \"{{ $('Message: User 1').item.json.message.text.replace(/\\\\/g, '\\\\\\\\').replace(/\"/g, '\\\\\\\"').replace(/{/g, '\\\\{').replace(/}/g, '\\\\}').replace(/\\n/g, '\\\\n').replace(/\\r/g, '') }}\",\n    \"respondingTo\": \"{{ $('Slack Trigger').first().json.user }}\",\n    \"timeAdded\": \"{{ $now }}\",\n    \"previousConversationChain\": \"linkedin\"\n  }\n}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "session_id",
+              "displayName": "session_id",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "message",
+              "displayName": "message",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "object",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        2020,
+        -80
+      ],
+      "id": "3d020134-d097-420d-ab12-0c57e52b272f",
+      "name": "Update Thread Memory Session",
+      "credentials": {
+        "postgres": {
+          "id": "PsARREIXEOG7p5ku",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "n8n_rodger_chat",
+          "mode": "list",
+          "cachedResultName": "n8n_rodger_chat"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "session_id": "={{$json.session_id}}",
+            "message": "={\n  \"type\": \"human\",\n  \"data\": {\n    \"content\": \"{{ $('Text Classifier').item.json.text.replace(/\\\\/g, '\\\\\\\\').replace(/\"/g, '\\\\\\\"').replace(/{/g, '\\\\{').replace(/}/g, '\\\\}').replace(/\\n/g, '\\\\n').replace(/\\r/g, '') }}\",\n    \"TimeAdded\": \"{{ $now }}\"\n  }\n}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "session_id",
+              "displayName": "session_id",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "message",
+              "displayName": "message",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "object",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        1840,
+        -80
+      ],
+      "id": "40774ef0-20b0-4bad-8c1d-7256e56186ad",
+      "name": "Update Thread Memory Session27",
+      "credentials": {
+        "postgres": {
+          "id": "PsARREIXEOG7p5ku",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "trigger": [
+          "any_event"
+        ],
+        "channelId": {
+          "__rl": true,
+          "value": "C08CE2WBQR3",
+          "mode": "list",
+          "cachedResultName": "patty_pa_input"
+        },
+        "options": {
+          "userIds": [
+            "U08C7BMMZHD"
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.slackTrigger",
+      "typeVersion": 1,
+      "position": [
+        -1540,
+        -100
+      ],
+      "id": "508bcad7-0499-4627-8119-677d45f9033d",
+      "name": "Slack Trigger",
+      "webhookId": "75f54052-651a-4cdd-8f4d-36fb5a6e52c9",
+      "credentials": {
+        "slackApi": {
+          "id": "ncQHsmHkvcVCSFNi",
+          "name": "Patty_PA_Bot API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "audio",
+        "operation": "transcribe",
+        "binaryPropertyName": "binary",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        -740,
+        -280
+      ],
+      "id": "9232f939-b9f8-4191-9636-1d39f90a7e76",
+      "name": "OpenAI",
+      "credentials": {
+        "openAiApi": {
+          "id": "AG2i36rIlQJn1Cj3",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e21d5b0b-2e72-4b5b-a292-a11bce246b66",
+              "name": "text",
+              "value": "={{ $('Code').item.json.text }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -940,
+        -100
+      ],
+      "id": "69dbf056-e7b8-4947-bbf1-89a8f9b20a3d",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.files[0].url_private_download }}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "slackOAuth2Api",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "file",
+              "outputPropertyName": "binary"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -940,
+        -280
+      ],
+      "id": "ed15343c-1dd3-4ec6-bd14-bf8d1bcf590a",
+      "name": "HTTP Request1",
+      "credentials": {
+        "slackOAuth2Api": {
+          "id": "SMZHJs3a87a9qsPV",
+          "name": "Slack OAuth2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('Code').item.json.files[0].filetype }}",
+                    "rightValue": "m4a",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "1cfe7794-000d-4c0c-ae1e-4495ff51ed51"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Voice"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "bf6e0e8d-7b4f-496b-a5f1-acf774633f32",
+                    "leftValue": "={{ $('Code').item.json.text }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "string",
+                      "operation": "notEmpty",
+                      "singleValue": true
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Text"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -1180,
+        -100
+      ],
+      "id": "01c4be7f-6b98-4c7a-9733-af5dc0caf050",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "32c5f0ec-43b0-4165-816e-dd4e5c7fa682",
+              "name": "text",
+              "value": "={{ $json.text }}",
+              "type": "string"
+            },
+            {
+              "id": "2e1b6dce-0eb6-419a-a1d5-83b5ec000951",
+              "name": "user",
+              "value": "={{ $('Code').item.json.user }}",
+              "type": "string"
+            },
+            {
+              "id": "94c37bf0-fef3-43c6-9dc7-640ea037c3f4",
+              "name": "ts",
+              "value": "={{ $('Code').item.json.ts }}",
+              "type": "string"
+            },
+            {
+              "id": "b8b90c8c-a79f-4481-8efa-dfdb94fadff8",
+              "name": "thread_ts",
+              "value": "={{ $('Code').item.json.thread_ts }}",
+              "type": "string"
+            },
+            {
+              "id": "0144689f-7197-4893-9095-9411b749050e",
+              "name": "session_id",
+              "value": "={{ $('Code').item.json.session_id }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -560,
+        -100
+      ],
+      "id": "0ade8777-9d53-4ab9-986d-78212d487fea",
+      "name": "Edit Fields2"
+    },
+    {
+      "parameters": {
+        "jsCode": "const event = $json;\n\nconst isThread = !!event.thread_ts;\nconst session_id = isThread\n  ? `${event.user}:${event.thread_ts}`\n  : `${event.user}:top`;\n\nconst files = event.files || [];\n\nreturn [{\n  json: {\n    session_id,\n    user: event.user,\n    text: event.text || \"\",\n    ts: event.ts,\n    thread_ts: event.thread_ts || null,\n    is_thread: isThread,\n    files // <== array of files stays bundled\n  }\n}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1340,
+        -100
+      ],
+      "id": "9fd06e0f-9d6a-4493-a476-36dc67b25e3d",
+      "name": "Code"
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "fieldsToMatchString": "session_id",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.1,
+      "position": [
+        40,
+        -80
+      ],
+      "id": "5b3e56e7-23b3-4f40-b11f-1a00e460a543",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "23381507-3da6-461d-91db-2a42a31bfa84",
+              "leftValue": "={{ $('Code').first().json.session_id }}",
+              "rightValue": "top",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -460,
+        60
+      ],
+      "id": "6bb1dbcf-5c38-47d8-ae02-9b7e62c63321",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "operation": "select",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "n8n_rodger_chat",
+          "mode": "list",
+          "cachedResultName": "n8n_rodger_chat"
+        },
+        "limit": 20,
+        "where": {
+          "values": [
+            {
+              "column": "session_id",
+              "value": "={{ $json.session_id }}"
+            }
+          ]
+        },
+        "combineConditions": "OR",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        -280,
+        120
+      ],
+      "id": "a4984bc7-fb59-4b09-ab62-dc1bb3e4809f",
+      "name": "Pull Thread Context",
+      "alwaysOutputData": true,
+      "credentials": {
+        "postgres": {
+          "id": "PsARREIXEOG7p5ku",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const sessionId = items[0]?.json.session_id || null;\n\n// Step 1: Extract and sort messages by TimeAdded\nconst sortedItems = [...items].sort((a, b) => {\n    const aTime = a.json.message?.data?.TimeAdded || a.json.message?.data?.timeAdded;\n    const bTime = b.json.message?.data?.TimeAdded || b.json.message?.data?.timeAdded;\n    const aTimestamp = aTime ? new Date(aTime).getTime() : 0;\n    const bTimestamp = bTime ? new Date(bTime).getTime() : 0;\n    return aTimestamp - bTimestamp;\n});\n\n// Step 2: Prepare formatted message content and collect meta fields\nconst formattedMessages = [];\nconst addedContents = new Set(); // Track which messages we’ve already added\n\nlet lastAddedAt = null;\nlet previousConversationChain = '';\n\nfor (let i = 0; i < sortedItems.length; i++) {\n    const item = sortedItems[i];\n    const data = item.json.message?.data || {};\n    const content = data.content;\n    const timeAdded = data.TimeAdded || data.timeAdded;\n    const chain = data.previousConversationChain;\n\n    // Skip empty or duplicate content\n    if (content && !addedContents.has(content)) {\n        formattedMessages.push(`--- Message ${formattedMessages.length + 1} ---\\n${content}`);\n        addedContents.add(content);\n    }\n\n    // Track most recent TimeAdded\n    if (timeAdded) {\n        const time = new Date(timeAdded).toISOString();\n        if (!lastAddedAt || new Date(time) > new Date(lastAddedAt)) {\n            lastAddedAt = time;\n        }\n    }\n\n    // Track most recent non-null previousConversationChain\n    if (chain && chain !== 'null') {\n        previousConversationChain = chain;\n    }\n}\n\nconst combined = formattedMessages.join('\\n\\n');\n\n// Final output\nreturn [\n    {\n        json: {\n            session_id: sessionId,\n            message: {\n                data: {\n                    content: combined,\n                    previousConversationChain: previousConversationChain || combined,\n                    lastAddedAt: lastAddedAt || new Date().toISOString()\n                }\n            }\n        }\n    }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -140,
+        -20
+      ],
+      "id": "77eacad3-e042-473b-bd7b-84733095cce6",
+      "name": "Code3"
+    }
+  ],
+  "pinData": {
+    "Slack Trigger": [
+      {
+        "json": {
+          "user": "U08CK2TKQFN",
+          "type": "message",
+          "ts": "1746289408.072919",
+          "client_msg_id": "f2b605e7-1e0a-4876-8673-858add099731",
+          "text": "Go ahead and post it to linkedin",
+          "team": "T08C21180HM",
+          "thread_ts": "1746289287.714219",
+          "parent_user_id": "U08CK2TKQFN",
+          "blocks": [
+            {
+              "type": "rich_text",
+              "block_id": "HzSIK",
+              "elements": [
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "Go ahead and post it to linkedin"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "channel": "C08CE2WBQR3",
+          "event_ts": "1746289408.072919",
+          "channel_type": "channel"
+        }
+      }
+    ]
+  },
+  "connections": {
+    "OpenAI Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Write LinkedIn Post",
+            "type": "ai_languageModel",
+            "index": 0
+          },
+          {
+            "node": "Text Classifier",
+            "type": "ai_languageModel",
+            "index": 0
+          },
+          {
+            "node": "Send LinkedIn Draft to User",
+            "type": "ai_languageModel",
+            "index": 0
+          },
+          {
+            "node": "Send LinkedIn Post",
+            "type": "ai_languageModel",
+            "index": 0
+          },
+          {
+            "node": "Send Confirmation",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LinkedIn": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Write LinkedIn Post": {
+      "main": [
+        [
+          {
+            "node": "Send LinkedIn Draft to User",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Send Confirmation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Text Classifier": {
+      "main": [
+        [
+          {
+            "node": "Send LinkedIn Post",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Write LinkedIn Post",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send LinkedIn Post": {
+      "main": [
+        [
+          {
+            "node": "Update LinkedIn Done",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send LinkedIn Draft to User": {
+      "main": [
+        [
+          {
+            "node": "Message: User 1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update LinkedIn Done": {
+      "main": [
+        [
+          {
+            "node": "LinkedIn",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Confirmation": {
+      "main": [
+        [
+          {
+            "node": "Message: User",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Postgres With New Message10": {
+      "main": [
+        [
+          {
+            "node": "Update Thread Memory Session26",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Thread Memory Session26": {
+      "main": [
+        [
+          {
+            "node": "Update Thread Memory Session25",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message: User": {
+      "main": [
+        [
+          {
+            "node": "Update Postgres With New Message10",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message: User 1": {
+      "main": [
+        [
+          {
+            "node": "Update Postgres With New Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Postgres With New Message": {
+      "main": [
+        [
+          {
+            "node": "Update Thread Memory Session27",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Thread Memory Session27": {
+      "main": [
+        [
+          {
+            "node": "Update Thread Memory Session",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Slack Trigger": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request1": {
+      "main": [
+        [
+          {
+            "node": "OpenAI",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields2": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Code3",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Pull Thread Context",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pull Thread Context": {
+      "main": [
+        [
+          {
+            "node": "Code3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code3": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Text Classifier",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "81cdfe64-fbf3-4d77-b8f6-6b48ebf3608f",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "755f8e384ae78a7dedbf592ffbd1a01c56d86a07241ef8bcfb307935a604c790"
+  },
+  "id": "pkt3O5ygomUPTWDT",
+  "tags": [
+    {
+      "createdAt": "2025-03-10T21:36:47.226Z",
+      "updatedAt": "2025-03-10T21:36:47.226Z",
+      "id": "aFiyGtZ7jL976uPD",
+      "name": "Free Giveaways"
+    }
+  ]
+}
